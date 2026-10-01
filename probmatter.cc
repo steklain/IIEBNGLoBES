@@ -27,12 +27,12 @@ int main(int argc, char * argv[])
 	outstde.open("stdprob_mue.dat");
     outstdtau.open("stdprob_mutau.dat");
 	
-	double dm21 = 8.0e-5;
+	double dm21 = 7.55e-5;
 	double dm31 = 2.50e-3;
-	double theta12 = 34*M_PI/180;
-	double theta23 = 45*M_PI/180;
-	double theta13 = 0;
-	double deltacp = 0;
+	double theta12 = asin(sqrt(0.320));
+	double theta23 = asin(sqrt(0.547));
+	double theta13 = asin(sqrt(0.02160));
+	double deltacp = -0.68 * M_PI;
 
 	glb_params true_values = glbAllocParams();
     glbDefineParams(true_values,theta12,theta13,theta23,deltacp,dm21,dm31);
