@@ -1,21 +1,30 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <math.h>
+#include <iostream>
+#include <cmath>
 #include <string.h>
-
+#include <float.h>
+#include <complex.h>
+#include <vector>
+#include<gsl/gsl_complex.h>
+#include<gsl/gsl_complex_math.h>
+#include<gsl/gsl_matrix.h>
+#include<gsl/gsl_blas.h>
 #include <globes/globes.h>
+#include<fstream>
 
-#include "myio.h"
-
-char MYFILE[] = "test1.dat";
+using namespace std;
+char AEDLFILE[] = "DUNE_GLoBES.glb";
 
 int main(int argc, char *argv[])
 {
     /* Initialize GLoBES */
     glbInit(argv[0]);
 
+    ofstream scn;
+
+	scn.open("scanth13dcp.dat");
+
     glbInitExperiment(
-        "NFstandard.glb",
+        AEDLFILE,
         &glb_experiment_list[0],
         &glb_num_of_exps
     );
@@ -56,8 +65,8 @@ int main(int argc, char *argv[])
         theta13,
         theta23,
         deltacp,
-        sdm,
-        ldm
+        dm21,
+        dm31
     );
 
     glbSetDensityParams(
@@ -70,11 +79,6 @@ int main(int argc, char *argv[])
     glbSetOscillationParameters(true_values);
 
     glbSetRates();
-
-    InitOutput(
-        MYFILE,
-        "Format: th13 deltacp chi^2\n"
-    );
 
     double x;
     double y;
@@ -112,14 +116,11 @@ int main(int argc, char *argv[])
                 GLB_ALL
             );
 
-            AddToOutput(
-                x,
-                y,
-                chi
-            );
+            scn<<x<<"  "<<y<<"  "<<chi<<endl;
         }
     }
 
+    scn.close();
     glbFreeParams(true_values);
     glbFreeParams(test_values);
 
