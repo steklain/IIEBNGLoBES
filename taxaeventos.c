@@ -12,7 +12,7 @@ string OUTFILE1 = "test2.dat";
 
 FILE *out1 = NULL;
 
-char AEDLFILE[] = "NFstandard.glb";
+char AEDLFILE[] = "DUNE_GLoBES.glb";
 
 int main(int argc, char *argv[])
 {
